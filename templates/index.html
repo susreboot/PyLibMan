@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'contact.css' %}"> {% endcomment %}
+        <title>LIBRARY MANAGEMENT SYSTEM</title>
+<style type="text/css">
+    .bs-example {
+      margin: 0px;
+    }
+    .bg-dark {
+    background-color: #	#FFC0CB!important;
+    }
+    .navbar-brand {
+      font-size: 20px;
+      font-family: sans-serif;
+
+    }
+    @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;	
+      font-family: Raleway, sans-serif;
+    }
+
+body {
+  background-image: url("../static/img/bookcases-g229ceca3d_1920.jpg");
+  height: 100%;
+  width:100%;
+}
+ 
+  
+  .box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25rem;
+    padding: 2.5rem;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 0.625rem;
+  }
+  
+  .box h2 {
+    margin: 0 0 1.875rem;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .box .inputBox {
+    position: relative;
+  }
+  
+  .box .inputBox input {
+    width: 100%;
+    padding: 0.625rem 0;
+    font-size: 1rem;
+    color: #fff;
+    letter-spacing: 0.062rem;
+    margin-bottom: 1.875rem;
+    border: none;
+    border-bottom: 0.065rem solid #fff;
+    outline: none;
+    background: transparent;
+  }
+  
+  .box .inputBox label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0.625rem 0;
+    font-size: 1rem;
+    color: #fff;
+    pointer-events: none;
+    transition: 0.5s;
+  }
+  
+  .box .inputBox input:focus ~ label,
+  .box .inputBox input:valid ~ label,
+  .box .inputBox input:not([value=""]) ~ label {
+    top: -1.125rem;
+    left: 0;
+    color: #03a9f4;
+    font-size: 0.75rem;
+  }
+  
+  .box input[type="submit"] {
+    border: none;
+    outline: none;
+    color: #fff;
+    background-color: #03a9f4;
+    padding: 0.625rem 1.25rem;
+    cursor: pointer;
+    border-radius: 0.312rem;
+    font-size: 1rem;
+  }
+  
+  .box input[type="submit"]:hover {
+    background-color: #1cb1f5;
+  }
+</style>  
+</head>
+
+<body>
+
+
+  <div class="bs-example">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+          <a href="/" class="navbar-brand" style="color:#d7d79a;">Palmetto Library Management</a>
+          <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+            <div class="navbar-nav">
+            </div>
+            <div class="navbar-nav">
+              <a href="/aboutus" class="nav-item nav-link">About</a>
+            </div>
+          </div>
+        </nav>
+  </div>
+     <div class="container">
+      <div class="messages" id="alert-message">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} mb-0 alert-dismissible fade show" role="alert">
+          <strong>Message :</strong>{{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="$(this).parent().fadeOut();">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endfor %} 
+      </div>
+      <script type="text/javascript"> 
+        $(function(){
+            setTimeout(function(){
+              $("#alert-message").fadeOut();
+            }, 500);
+        });
+      </script>
+    
+      <div class="screen">
+        <div class="screen__content">
+        
+      <div class="box">
+        <h2>Login</h2>
+        <form class="login" action="/LoginBackend/" method="post">
+          {% csrf_token %}
+          <div class="inputBox">
+            <input type="text" name="loginuname" id="loginuname"required onkeyup="this.setAttribute('value', this.value);" value="">
+            <label>Username</label>
+          </div>
+          <div class="inputBox">
+            <input type="password" name="loginpassword" required value=""
+                   id="loginpassword">
+            <label>Password</label>
+          </div>
+          <input type="submit" name="sign-in" value="Sign In">
+        </form>
+      </div>
+    </div> 
+  </div>
+
+</body>
+
+</html>

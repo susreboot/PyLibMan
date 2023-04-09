@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">  
+    <link rel="stylesheet" type="text/css" href="../static/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+  </head>
+  <body>
+
+    <div class="grid-container">
+      <header class="header">
+        <h1> <i class="fa fa-undo fa-lg"></i> RETURN BOOKS</h1>
+      </header>
+
+      <aside class="sidenav">
+        <a href="/dashboard/">
+          <img src="{% static 'img/PalmettoLogo.png' %}" alt="Logo" class="sidenav__logo">
+        </a>
+        <div class="sidenav__close-icon">
+          <i class="fas fa-times sidenav__brand-close"></i>
+        </div>
+        <ul class="sidenav__list">
+          <li class="sidenav__list-item"><a href="/dashboard/"><i class="fa fa-tachometer"></i> Dashboard</a></li>
+          <li class="sidenav__list-item"><a href="/addbook/"><i class="fa fa-book"></i> Add Book</a></li>
+          <li class="sidenav__list-item"><a href="/viewstudents/"><i class="fa fa-address-book"></i> View Patrons</a></li>
+          <li class="sidenav__list-item"><a href="/addstudent/"><i class="fa fa-users"></i> Add Patron</a></li>
+          <li class="sidenav__list-item"><a href="/viewissuedbook/"><i class="fa fa-search"></i> View Issued Books</a></li>
+          <li class="sidenav__list-item"><a href="/bookissue/"><i class="fa fa-bookmark"></i> Issue Book</a></li>
+          <!-- <li class="sidenav__list-item"><a href="/returnbook/"><i class="fa fa-undo"></i> Return Book</a></li> -->
+          <li class="sidenav__list-item"><a href="/HandleLogout/"><i class="fa fa-sign-out"></i> Log Out</a></li>
+        </ul>
+      </aside>
+
+      <main class="main">
+        <div class="messages" id="alert-message">
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} mb-0 alert-dismissible fade show" role="alert">
+              <strong>Message:</strong> {{ message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div>
+          <br><br>
+          <div class="table-container">
+            <div class="form-box" style="background-color: #00a6cc; width:30rem; height:25rem;">
+              <h2>RETURN BOOK</h2>
+              <form action="/returnbooksubmission/" method="post">
+                {% csrf_token %}
+              <div class="login-page" >
+                <div class="form">
+                  <form class="login-form">
+                    <input type="text" name="bookid2" class="form-control" id="bookid2" required placeholder="BOOK ID: "/>
+                    <button type="submit">Submit</button>
+                  </form>
+              </div>
+          </div>
+        </div>
+        </br></br>
+        <div class="table-container" style="border-style: solid; border-color: white; padding:10px; padding-bottom:20px; margin-left:15%; margin-right:15%;">
+          <h1> LIBRARY BOOKS </h1>
+        </br></br>
+          <table class="blueTable" id="dataTable" width="100%" cellspacing="0">
+              <thead style="background-color: #00a6cc;">
+                  <tr>
+                      <th>Book Id</th>
+                      <th>Book Name</th>
+                      <th>Subject</th>
+                      <th>Status</th>
+                  </tr>
+              </thead>
+          {% for info in Book %}
+                  <tr>
+                      <td data-label="bookid">{{info.bookid}}</td>
+                      <td data-label="bookname">{{info.bookname}}</td>
+                      <td data-label="subject">{{info.subject}}</td>
+                      <td data-label="category">{{info.category}}</td>
+                  </tr>
+        
+          {% endfor %}
+          </tbody>
+          </table>
+          
+        </div>
+    </div>   
+   </main>
+  
+   <footer class="footer">
+    <div class="footer__copyright">&copy; 2023</div>
+    <div class="footer__signature">Palmetto Library Management</div>
+   </footer>
+  </div>
+  </html>

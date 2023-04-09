@@ -1,0 +1,133 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">  
+    <link rel="stylesheet" type="text/css" href="../static/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+  </head>
+<script>
+  const menuIconEl = $('.menu-icon');
+  const sidenavEl = $('.sidenav');
+  const sidenavCloseEl = $('.sidenav__close-icon');
+
+  // Add and remove provided class names
+  function toggleClassName(el, className) {
+  if (el.hasClass(className)) {
+    el.removeClass(className);
+  } else {
+    el.addClass(className);
+  }
+  }
+
+  // Open the side nav on click
+  menuIconEl.on('click', function() {
+  toggleClassName(sidenavEl, 'active');
+  });
+
+  // Close the side nav on click
+  sidenavCloseEl.on('click', function() {
+  toggleClassName(sidenavEl, 'active');
+  });
+</script>
+
+<div class="messages" id="alert-message">
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} mb-0 alert-dismissible fade show" role="alert">
+    <strong>Message :</strong>{{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %} 
+</div>
+<script type="text/javascript"> 
+    $(function(){
+    setTimeout(function(){
+        $("#alert-message").hide();
+        }, 2000);
+      });
+    </script>
+    
+<body>
+  <div class="grid-container">
+  <header class="header">
+    <h1> <i class="fa fa-users fa-1x"></i> PATRON MANAGEMENT</h1>
+  </header>
+  <aside class="sidenav">
+    <a href="/dashboard/">
+      <img src="{% static 'img/PalmettoLogo.png' %}" alt="Logo" class="sidenav__logo">
+    </a>
+    <div class="sidenav__close-icon">
+      <i class="fas fa-times sidenav__brand-close"></i>
+    </div>
+    <ul class="sidenav__list">
+      <li class="sidenav__list-item"><a href="/dashboard/"><i class="fa fa-tachometer"></i> Dashboard</a></li>
+      <li class="sidenav__list-item"><a href="/addbook/"><i class="fa fa-book"></i> Add Book</a></li>
+      <li class="sidenav__list-item"><a href="/viewstudents/"><i class="fa fa-address-book"></i> View Patrons</a></li>
+      <!-- <li class="sidenav__list-item"><a href="/addstudent/"><i class="fa fa-users"></i> Add Patron</a></li> -->
+      <li class="sidenav__list-item"><a href="/viewissuedbook/"><i class="fa fa-search"></i> View Issued Books</a></li>
+      <li class="sidenav__list-item"><a href="/bookissue/"><i class="fa fa-bookmark"></i> Issue Book</a></li>
+      <li class="sidenav__list-item"><a href="/returnbook/"><i class="fa fa-undo"></i> Return Book</a></li>
+      <li class="sidenav__list-item"><a href="/HandleLogout/"><i class="fa fa-sign-out"></i> Log Out</a></li>
+    </ul>
+  </aside>
+
+  <main class="main">
+    <div>
+      <br><br>
+            <div class="table-container">
+              <div class="form-box" style="background-color: #00a6cc; width:30rem; height:25rem;">
+                <h2>ADD PATRON</h2>
+                <form action="/addstudentsubmission/" method="post" class="login-form">
+                  {% csrf_token %}
+                  <div class="login-page" >
+                    <div class="form">
+                      <input type="text" name="sname" id="book1" id="sname" required placeholder="PATRON NAME: "/>
+                      <br>
+                      <input type="text" name="studentid" id="studentid" required placeholder="PATRON ID: "/>
+                      <br>
+                      <button type="submit">Submit</button>
+                    </div>
+                  </div>
+                </form>
+                </div>
+            </div>
+      </br></br>
+      <div class="table-container">
+        <div class="table-container" style="border-style: solid; border-color: white; padding:10px; padding-bottom:20px; margin-left:15%; margin-right:15%;">
+        <h1> LIBRARY PATRONS </h1>
+      </br></br>
+        <table class="blueTable" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+                <tr>
+                    <th>Patron Name</th>
+                    <th>Patron Id</th>
+                    <th>Delete</th>
+    
+                </tr>
+            </thead>
+        {% for info in Student %}
+                <tr>
+                    <td data-label="bookid">{{info.sname}}</td>
+                    <td data-label="bookname">{{info.studentid}}</td>
+                    <td><a href="{% url 'deletestudent' info.id %}" class = " btn btn-danger ">Delete</a></td>
+                </tr>
+    
+        {% endfor %}
+        </tbody>
+        </table> <br><br>
+      </div>
+      </div>
+    </div>
+      
+  </main>
+</body>
+ <footer class="footer">
+  <div class="footer__copyright">&copy; 2023</div>
+  <div class="footer__signature">Palmetto Library Management</div>
+ </footer>
+</div>
